@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 from models.comment import Comment
 from database import get_session
-from schemas.comments import CommentCreate
+from schemas.comments import CommentCreate, CommentRead
 from security.auth import verify_access_token
 
 
@@ -19,6 +19,8 @@ async def create(comment: CommentCreate, token: int = Depends(verify_access_toke
         session.rollback()
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+    new_comment = CommentRead.model_validate(new_comment)
+    new_comment.commented_by_me = token == new_comment.user.id
     return new_comment
 
 @router.delete('/{comment_id}', status_code=204)
