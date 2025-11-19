@@ -6,7 +6,7 @@ from models.like import Like
 
 
 engine = create_engine(
-    "mysql+pymysql://back:back@ls-9bad9371f72fd62d2920af4e2d9808be31f2f0b3.cr6cw0802aam.us-east-2.rds.amazonaws.com:3306/social_db",
+    "mysql+pymysql://back:back@localhost:3306/social_db",
 )
 
 def create_db_and_tables():
