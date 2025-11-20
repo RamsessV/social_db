@@ -11,3 +11,4 @@ class Comment(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.now)
 
     user: Optional["User"] = Relationship()
+    post: Optional["Post"] = Relationship(back_populates="comments")

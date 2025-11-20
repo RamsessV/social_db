@@ -6,3 +6,4 @@ class Like(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     user_id: int = Field(foreign_key="users.id", ondelete="CASCADE")
     post_id: int = Field(foreign_key="posts.id", ondelete="CASCADE")
+    post: Optional["Post"] = Relationship(back_populates="likes_count")

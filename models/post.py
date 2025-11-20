@@ -12,4 +12,17 @@ class Post(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.now)
 
     user: Optional["User"] = Relationship(back_populates="posts")
-    comments: Optional[List["Comment"]] = Relationship()
+    comments: list["Comment"] = Relationship(
+    back_populates="post",
+    sa_relationship_kwargs={
+        "cascade": "all, delete-orphan",
+        "passive_deletes": True
+    }
+)
+    likes_count: list["Like"] = Relationship(
+    back_populates="post",
+    sa_relationship_kwargs={
+        "cascade": "all, delete-orphan",
+        "passive_deletes": True
+    }
+)
